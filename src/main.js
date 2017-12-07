@@ -2,6 +2,8 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import App from './App';
 import goods from 'components/goods/goods';
+import seller from 'components/seller/seller';
+import ratings from 'components/ratings/ratings';
 
 Vue.use(VueRouter);
 // 通过 Vue.extend() 创建的组件构造器，
@@ -11,6 +13,12 @@ let router = new VueRouter();
 router.map({
   '/goods': {
     component: goods
+  },
+  '/seller': {
+    component: seller
+  },
+  '/ratings': {
+    component: ratings
   }
 });
 // 开始使用路由
