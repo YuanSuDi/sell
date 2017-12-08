@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    我是头部header
+    我是头部header1
   </div>
 </template>
 
