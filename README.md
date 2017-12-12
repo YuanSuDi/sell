@@ -1,6 +1,6 @@
 # sell
 
-> sell-app
+> sell-app 仿饿了吗商家界面的代码实现
 
 ## Build Setup
 
