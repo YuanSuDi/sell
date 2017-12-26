@@ -1,5 +1,5 @@
 <template>
-  <div>i am rating</div>
+  <div>i am 评价</div>
 </template>
 
 <script type="text/ecmascript-6">

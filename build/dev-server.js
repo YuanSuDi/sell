@@ -14,7 +14,7 @@ var port = process.env.PORT || config.dev.port
 var proxyTable = config.dev.proxyTable
 
 var app = express()
-// 定义数据读取
+// 定义数据读取,这里读取的数据可以作用于全局
 var data = require('../data.json');
 var seller = data.seller;
 var goods = data.goods;

@@ -31,20 +31,47 @@
     <div class="background">
       <img :src="seller.avatar" width="100%" height="100%">
     </div>
-    <div v-show="detailShow" class="detail">
+    <div v-show="detailShow" class="detail" transition="fade">
       <div class="detail-wrapper clearfix">
         <!--写主要的内容-->
-        <div class="detail-main"></div>
+        <div class="detail-main">
+          <h1 class="name">{{seller.name}}</h1>
+          <!--设置组件的位置及大小-->
+          <div class="star-wrapper">
+            <star :size="48" :score="seller.score"></star>
+          </div>
+          <div class="title">
+            <div class="line"></div>
+            <div class="text">优惠信息</div>
+            <div class="line"></div>
+          </div>
+          <ul v-if="seller.supports" class="supports">
+            <li class="support-item" v-for="item in seller.supports">
+              <span class="icon" :class="classMap[seller.supports[$index].type]"></span>
+              <span class="text">{{seller.supports[$index].description}}</span>
+            </li>
+          </ul>
+          <div class="title">
+            <div class="line"></div>
+            <div class="text">商家公告</div>
+            <div class="line"></div>
+          </div>
+          <div class="bulletin">
+            <p class="content">{{seller.bulletin}}</p>
+          </div>
+        </div>
       </div>
       <!--关闭按钮-->
       <div class="detail-close">
-       <i class="icon-close" @click="hiddenDetail"></i>
+        <i class="icon-close" @click="hiddenDetail"></i>
       </div>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import star from '../star/star';
+
   export default {
     // 将传过来的商家对象进行处理
     props: {
@@ -68,6 +95,9 @@
     // 定义classMap,根据商家支持的类型分别对应不同的图片
     created() {
       this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
+    },
+    components: {
+      star
     }
   };
 </script>
@@ -108,7 +138,6 @@
             font-size: 16px
             line-height: 18px
             font-weight: bold
-
         .description
           margin-bottom: 10px
           line-height: 12px
@@ -125,7 +154,7 @@
             &.decrease
               bg-image('decrease_1')
             &.discount
-              bg-image('decrease_1')
+              bg-image('discount_1')
             &.guarantee
               bg-image('guarantee_1')
             &.invoice
@@ -197,12 +226,83 @@
       top: 0
       left: 0
       overflow: auto
-      background: rgba(7, 17, 27, 0.8)
+      transition: all 0.5s
+      z-index: 100
+      backdrop-filter: blur(10px)
+      &.fade-transition
+        opacity :1
+        background: rgba(7, 17, 27, 0.8)
+      &.fade-enter,&.fade-leave
+        opacity:0
+        ackground: rgba(7, 17, 27, 0)
       .detail-wrapper
         min-height: 100%
+        width: 100%
         .detail-main
           margin-top: 64px
           padding-bottom: 64px
+          .name
+            line-height: 16px
+            text-align: center
+            font-size: 16px
+            font-weight: 700
+          .star-wrapper
+            width: 100%
+            margin-top: 18px
+            padding: 2px 0
+            text-align: center
+          .title
+            width: 80%
+            margin: 30px auto 20px auto
+            display: flex
+            .line
+              flex: 1
+              position: relative
+              top: -6px
+              border-bottom: 1px solid rgba(255, 255, 255, 0.2)
+            .text
+              padding: 0 12px
+              font-size: 14px
+              font-weight: 700
+          .supports
+            width: 80%
+            margin: 0 auto
+            .support-item
+              padding: 0 12px
+              margin-bottom: 12px
+              font-size: 0
+              &:last-child
+                margin-bottom: 0
+              .icon
+                display: inline-block
+                width: 16px
+                height: 16px
+                vertical-align: top
+                margin-right: 6px
+                background-size: 16px 16px
+                background-repeat: no-repeat
+                &.decrease
+                  bg-image('decrease_2')
+                &.discount
+                  bg-image('discount_2')
+                &.guarantee
+                  bg-image('guarantee_2')
+                &.invoice
+                  bg-image('invoice_2')
+                &.special
+                  bg-image('special_2')
+              .text
+                font-size: 12px
+                font-weight: 200
+                color: rgb(255, 255, 255)
+                line-height: 12px
+          .bulletin
+            width: 80%
+            margin: 0 auto
+            .content
+              padding: 0 12px
+              line-height: 24px
+              font-size:12px
       .detail-close
         position: relative
         height: 32px
@@ -210,5 +310,4 @@
         margin: -64px auto 0 auto
         clear: both
         font-size: 32px
-
 </style>

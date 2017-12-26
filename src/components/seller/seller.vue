@@ -1,5 +1,5 @@
 <template>
-  <div>i am seller</div>
+  <div>i am 店铺</div>
 </template>
 
 <script type="text/ecmascript-6">
